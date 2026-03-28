@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import React from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 
 interface DesktopProps {
@@ -32,7 +33,7 @@ function MenuBar() {
       className="absolute top-0 left-0 right-0 flex items-center justify-between px-5"
       style={{
         height: "28px",
-        background: "rgba(0,0,0,0.25)",
+        background: "rgba(0,0,0,0.35)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         zIndex: 20,
@@ -115,99 +116,197 @@ function DockIcon({
   );
 }
 
-/* ---------- SVG mountain scene ---------- */
-function EverestScene() {
+/* ---------- BMW M4 SVG scene ---------- */
+function M4Scene() {
   return (
-    <svg
-      viewBox="0 0 1440 400"
-      preserveAspectRatio="xMidYMax slice"
-      className="absolute bottom-0 left-0 w-full"
-      style={{ height: "62%", pointerEvents: "none" }}
-      aria-hidden
-    >
-      {/* Far range — lightest, bluish */}
-      <polygon
-        points="0,400 0,260 120,180 240,230 360,150 480,200 600,130 720,180 840,140 960,185 1080,120 1200,170 1320,140 1440,160 1440,400"
-        fill="#b8c8e0"
-        opacity="0.35"
-      />
-      {/* Mid range */}
-      <polygon
-        points="0,400 0,310 80,250 180,280 300,200 440,240 560,170 660,210 760,155 880,205 1000,150 1120,195 1240,158 1360,190 1440,170 1440,400"
-        fill="#8aa4c0"
-        opacity="0.45"
-      />
-      {/* Snow caps on mid range */}
-      <polygon points="560,170 520,195 600,195" fill="white" opacity="0.6" />
-      <polygon points="760,155 720,180 800,180" fill="white" opacity="0.6" />
-      <polygon points="1000,150 960,178 1040,178" fill="white" opacity="0.55" />
-      <polygon points="300,200 270,222 330,222" fill="white" opacity="0.5" />
+    <>
+      {/* Road perspective */}
+      <svg
+        viewBox="0 0 1440 320"
+        preserveAspectRatio="xMidYMax slice"
+        className="absolute bottom-0 left-0 w-full"
+        style={{ height: "45%", pointerEvents: "none" }}
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#111" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#0a0a0a" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="glowLine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#1a6ef5" stopOpacity="0" />
+            <stop offset="30%" stopColor="#1a6ef5" stopOpacity="0.9" />
+            <stop offset="70%" stopColor="#1a6ef5" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#1a6ef5" stopOpacity="0" />
+          </linearGradient>
+        </defs>
 
-      {/* Main foreground peaks */}
-      {/* Left mountain */}
-      <polygon
-        points="0,400 0,320 140,220 280,300 360,400"
-        fill="#3d5068"
-        opacity="0.9"
-      />
-      {/* Left snow */}
-      <polygon points="140,220 100,255 180,255" fill="white" opacity="0.85" />
+        {/* Road surface */}
+        <polygon points="0,320 1440,320 1440,180 0,180" fill="url(#roadGrad)" />
+        {/* Road perspective lines */}
+        <polygon points="560,180 880,180 1440,320 0,320" fill="#0d0d0d" />
+        {/* Center dashes */}
+        <rect x="700" y="220" width="40" height="8" rx="4" fill="#333" opacity="0.8" />
+        <rect x="700" y="250" width="40" height="8" rx="4" fill="#333" opacity="0.8" />
+        <rect x="700" y="280" width="40" height="8" rx="4" fill="#333" opacity="0.8" />
+        <rect x="700" y="308" width="40" height="8" rx="4" fill="#333" opacity="0.6" />
+        {/* Road edge glow */}
+        <rect x="0" y="179" width="1440" height="3" fill="url(#glowLine)" opacity="0.6" />
+        {/* Reflections on road */}
+        <ellipse cx="720" cy="290" rx="260" ry="30" fill="#1a6ef5" opacity="0.04" />
+      </svg>
 
-      {/* Center-left peak */}
-      <polygon
-        points="200,400 320,230 440,290 520,400"
-        fill="#2e4060"
-        opacity="0.95"
-      />
-      <polygon points="320,230 295,262 345,262" fill="white" opacity="0.9" />
+      {/* BMW M4 SVG — side profile */}
+      <svg
+        viewBox="0 0 800 300"
+        className="absolute"
+        style={{
+          width: "min(700px, 80vw)",
+          height: "auto",
+          bottom: "12%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          pointerEvents: "none",
+          filter: "drop-shadow(0 20px 60px rgba(26,110,245,0.35)) drop-shadow(0 4px 20px rgba(0,0,0,0.8))",
+        }}
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1a1a2e" />
+            <stop offset="40%" stopColor="#0f0f1a" />
+            <stop offset="100%" stopColor="#050508" />
+          </linearGradient>
+          <linearGradient id="roofGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#2a2a3e" />
+            <stop offset="50%" stopColor="#1e1e30" />
+            <stop offset="100%" stopColor="#0f0f1a" />
+          </linearGradient>
+          <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#3a5f9a" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#1a3060" stopOpacity="0.4" />
+          </linearGradient>
+          <radialGradient id="wheelGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#2a2a2a" />
+            <stop offset="100%" stopColor="#0a0a0a" />
+          </radialGradient>
+          <radialGradient id="headlight" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="60%" stopColor="#a0c8ff" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#1a6ef5" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="taillight" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#ff3030" stopOpacity="1" />
+            <stop offset="100%" stopColor="#cc0000" stopOpacity="0" />
+          </radialGradient>
+        </defs>
 
-      {/* EVEREST — tallest, center */}
-      <polygon
-        points="480,400 620,80 760,400"
-        fill="#253550"
-        opacity="1"
-      />
-      {/* Everest snow & ice */}
-      <polygon points="620,80 580,140 660,140" fill="white" opacity="0.95" />
-      <polygon points="620,80 590,130 650,130" fill="#e8f4ff" opacity="0.7" />
-      {/* Wind plume from Everest summit */}
-      <path
-        d="M620,80 Q680,55 740,65 Q700,70 660,85 Z"
-        fill="white"
-        opacity="0.45"
-      />
+        {/* Car body — M4 coupe silhouette */}
+        <path
+          d="M80,220 L80,190 Q85,175 100,165 L160,140 Q200,115 250,108 L340,100 Q380,95 410,97 L500,100 Q560,102 600,110 L660,125 Q700,140 720,160 L730,180 L735,200 L735,220 Z"
+          fill="url(#bodyGrad)"
+          stroke="#1a6ef5"
+          strokeWidth="0.8"
+          strokeOpacity="0.4"
+        />
 
-      {/* Right center mountain */}
-      <polygon
-        points="700,400 820,190 940,310 1000,400"
-        fill="#2a3d58"
-        opacity="0.95"
-      />
-      <polygon points="820,190 790,225 850,225" fill="white" opacity="0.88" />
+        {/* Roof */}
+        <path
+          d="M200,140 Q250,105 320,98 L430,94 Q480,92 510,97 L580,112 Q620,125 640,140 L560,138 Q530,130 500,128 L320,128 Q280,130 240,138 Z"
+          fill="url(#roofGrad)"
+        />
 
-      {/* Right mountain */}
-      <polygon
-        points="900,400 1040,240 1180,320 1260,400"
-        fill="#344a64"
-        opacity="0.9"
-      />
-      <polygon points="1040,240 1010,272 1070,272" fill="white" opacity="0.8" />
+        {/* Windshield */}
+        <path
+          d="M310,128 Q320,100 360,97 L430,94 Q460,93 480,98 L510,128 Z"
+          fill="url(#glassGrad)"
+          stroke="#1a6ef5"
+          strokeWidth="0.5"
+          strokeOpacity="0.5"
+        />
 
-      {/* Far right */}
-      <polygon
-        points="1160,400 1280,280 1380,330 1440,310 1440,400"
-        fill="#3a506a"
-        opacity="0.85"
-      />
-      <polygon points="1280,280 1255,305 1305,305" fill="white" opacity="0.75" />
+        {/* Side window */}
+        <path
+          d="M220,135 Q240,118 270,112 L308,128 Z"
+          fill="url(#glassGrad)"
+          stroke="#1a6ef5"
+          strokeWidth="0.5"
+          strokeOpacity="0.4"
+        />
 
-      {/* Foreground snowy ground / glacier */}
-      <path
-        d="M0,400 Q180,360 360,375 Q540,390 720,370 Q900,350 1080,368 Q1260,386 1440,372 L1440,400 Z"
-        fill="white"
-        opacity="0.18"
-      />
-    </svg>
+        {/* Rear window */}
+        <path
+          d="M512,128 L555,132 Q575,133 590,138 L560,138 Z"
+          fill="url(#glassGrad)"
+          stroke="#1a6ef5"
+          strokeWidth="0.5"
+          strokeOpacity="0.4"
+        />
+
+        {/* Door line */}
+        <path d="M200,140 L560,138" stroke="#2a3a5a" strokeWidth="1" strokeOpacity="0.5" />
+        <path d="M380,128 L380,220" stroke="#1a2a4a" strokeWidth="0.8" strokeOpacity="0.4" />
+
+        {/* BMW kidney grille */}
+        <path d="M83,170 Q88,162 95,160 L110,158 Q118,158 122,162 L124,172 Q122,178 116,180 L92,182 Q85,180 83,174 Z" fill="#0a0a0a" stroke="#1a6ef5" strokeWidth="1" strokeOpacity="0.7" />
+        <path d="M126,158 L138,157 Q146,157 150,161 L152,172 Q150,178 144,180 L126,181 Z" fill="#0a0a0a" stroke="#1a6ef5" strokeWidth="1" strokeOpacity="0.7" />
+
+        {/* Front bumper / splitter */}
+        <path d="M80,200 L80,215 Q82,220 92,222 L160,222 L160,215 Q130,212 100,208 Z" fill="#0d0d16" stroke="#1a6ef5" strokeWidth="0.6" strokeOpacity="0.3" />
+
+        {/* Side skirt */}
+        <path d="M160,215 L580,215 L580,222 L160,222 Z" fill="#0d0d16" stroke="#1a6ef5" strokeWidth="0.5" strokeOpacity="0.25" />
+
+        {/* Headlight */}
+        <ellipse cx="95" cy="160" rx="14" ry="8" fill="url(#headlight)" opacity="0.9" />
+        <ellipse cx="95" cy="160" rx="6" ry="4" fill="white" opacity="0.95" />
+        {/* DRL strip */}
+        <path d="M82,155 Q88,152 100,151 L112,152" stroke="#a0c8ff" strokeWidth="1.5" strokeOpacity="0.8" fill="none" />
+
+        {/* Taillight */}
+        <ellipse cx="720" cy="165" rx="12" ry="7" fill="url(#taillight)" opacity="0.85" />
+        <path d="M710,158 L730,158 L732,168 L708,170 Z" fill="#cc0000" opacity="0.6" />
+
+        {/* M badge */}
+        <text x="410" y="155" fontSize="10" fontFamily="Arial Black, sans-serif" fontWeight="900" fill="#1a6ef5" opacity="0.9" textAnchor="middle">M4</text>
+
+        {/* Front wheel */}
+        <circle cx="200" cy="222" r="40" fill="#0d0d0d" stroke="#1a6ef5" strokeWidth="1.2" strokeOpacity="0.6" />
+        <circle cx="200" cy="222" r="28" fill="#111" stroke="#333" strokeWidth="1" />
+        <circle cx="200" cy="222" r="10" fill="#1a1a1a" stroke="#1a6ef5" strokeWidth="1" strokeOpacity="0.7" />
+        {/* Spokes */}
+        {[0,60,120,180,240,300].map((deg) => (
+          <line key={deg}
+            x1={200 + 10 * Math.cos(deg * Math.PI / 180)}
+            y1={222 + 10 * Math.sin(deg * Math.PI / 180)}
+            x2={200 + 27 * Math.cos(deg * Math.PI / 180)}
+            y2={222 + 27 * Math.sin(deg * Math.PI / 180)}
+            stroke="#1a6ef5" strokeWidth="2" strokeOpacity="0.6"
+          />
+        ))}
+        {/* Tyre */}
+        <circle cx="200" cy="222" r="40" fill="none" stroke="#0a0a0a" strokeWidth="8" />
+
+        {/* Rear wheel */}
+        <circle cx="580" cy="222" r="40" fill="#0d0d0d" stroke="#1a6ef5" strokeWidth="1.2" strokeOpacity="0.6" />
+        <circle cx="580" cy="222" r="28" fill="#111" stroke="#333" strokeWidth="1" />
+        <circle cx="580" cy="222" r="10" fill="#1a1a1a" stroke="#1a6ef5" strokeWidth="1" strokeOpacity="0.7" />
+        {[0,60,120,180,240,300].map((deg) => (
+          <line key={deg}
+            x1={580 + 10 * Math.cos(deg * Math.PI / 180)}
+            y1={222 + 10 * Math.sin(deg * Math.PI / 180)}
+            x2={580 + 27 * Math.cos(deg * Math.PI / 180)}
+            y2={222 + 27 * Math.sin(deg * Math.PI / 180)}
+            stroke="#1a6ef5" strokeWidth="2" strokeOpacity="0.6"
+          />
+        ))}
+        <circle cx="580" cy="222" r="40" fill="none" stroke="#0a0a0a" strokeWidth="8" />
+
+        {/* Ground shadow */}
+        <ellipse cx="390" cy="264" rx="300" ry="18" fill="#1a6ef5" opacity="0.06" />
+        <ellipse cx="390" cy="263" rx="200" ry="10" fill="black" opacity="0.4" />
+      </svg>
+    </>
   );
 }
 
@@ -219,92 +318,44 @@ export default function Desktop({ onOpen }: DesktopProps) {
       className="fixed inset-0 overflow-hidden select-none"
       style={{ zIndex: 100 }}
     >
-      {/* Sky gradient — Everest dawn/dusk palette */}
+      {/* Apple macOS default wallpaper */}
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(180deg, #0a0f1e 0%, #0d1832 15%, #1a2d50 35%, #2c3f6e 55%, #4a5f8a 70%, #7a8fb0 82%, #b0bec8 92%, #d0d8e0 100%)",
+          backgroundImage: "url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       />
-
-      {/* Stars */}
-      <div className="absolute inset-0 pointer-events-none" style={{ top: 0, height: "55%" }}>
-        {Array.from({ length: 120 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: Math.random() > 0.85 ? "2px" : "1px",
-              height: Math.random() > 0.85 ? "2px" : "1px",
-              background: "white",
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: 0.2 + Math.random() * 0.6,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Moon */}
+      {/* Subtle overlay to keep UI readable */}
       <div
-        className="absolute rounded-full"
-        style={{
-          width: "48px",
-          height: "48px",
-          top: "8%",
-          right: "18%",
-          background: "radial-gradient(circle at 35% 35%, #fffde0, #e8e0c0)",
-          boxShadow: "0 0 30px rgba(255,245,200,0.25), 0 0 60px rgba(255,245,200,0.1)",
-          opacity: 0.9,
-        }}
+        className="absolute inset-0"
+        style={{ background: "rgba(0,0,0,0.18)" }}
       />
-
-      {/* Aurora / atmospheric glow near horizon */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: "38%",
-          left: "5%",
-          width: "45%",
-          height: "25%",
-          background:
-            "radial-gradient(ellipse, rgba(100,160,220,0.12) 0%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: "35%",
-          right: "10%",
-          width: "40%",
-          height: "20%",
-          background:
-            "radial-gradient(ellipse, rgba(140,180,240,0.1) 0%, transparent 70%)",
-          filter: "blur(50px)",
-        }}
-      />
-
-      {/* Mountain SVG scene */}
-      <EverestScene />
 
       {/* Menu bar */}
       <MenuBar />
 
-      {/* Sherbin.sh icon — centered above mountains */}
-      <div
-        className="absolute flex flex-col items-center gap-3 cursor-pointer"
+      {/* Sherbin.sh icon — draggable */}
+      <motion.div
+        drag
+        dragMomentum={false}
+        dragElastic={0.08}
+        className="absolute flex flex-col items-center gap-3"
         style={{
           top: "28%",
           left: "50%",
-          transform: "translateX(-50%)",
+          x: "-50%",
           zIndex: 10,
+          cursor: "grab",
+          touchAction: "none",
         }}
+        whileDrag={{ cursor: "grabbing", scale: 1.06 }}
         onDoubleClick={onOpen}
         onClick={() => setIconSelected((v) => !v)}
         tabIndex={0}
-        onKeyDown={(e) => e.key === "Enter" && onOpen()}
+        onKeyDown={(e: React.KeyboardEvent) => e.key === "Enter" && onOpen()}
       >
         {/* Icon shell */}
         <div
@@ -379,17 +430,7 @@ export default function Desktop({ onOpen }: DesktopProps) {
           Sherbin.sh
         </span>
 
-        <span
-          style={{
-            color: "rgba(255,255,255,0.5)",
-            fontSize: "11px",
-            fontFamily: "-apple-system, sans-serif",
-            marginTop: "-4px",
-          }}
-        >
-          Double-click to open
-        </span>
-      </div>
+      </motion.div>
 
       {/* Dock */}
       <div

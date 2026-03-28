@@ -57,11 +57,11 @@ export default function Skills({ isMinimized, onMinimize, onRestore }: Props) {
       onMinimize={onMinimize}
       onRestore={onRestore}
     >
-      <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
+      <div style={{ padding: "clamp(20px, 5vw, 40px)", background: "var(--terminal-bg)" }}>
         <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
           # skills & technologies
         </p>
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group) => (
             <div
               key={group.category}

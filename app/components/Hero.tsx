@@ -45,7 +45,7 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
     <section
       id="home"
       className="flex items-center justify-center relative grid-bg"
-      style={{ padding: isMinimized ? 0 : "0 24px", minHeight: isMinimized ? 0 : "100vh", overflow: "hidden" }}
+      style={{ padding: isMinimized ? 0 : "0 clamp(12px, 4vw, 24px)", minHeight: isMinimized ? 0 : "100vh", overflow: "hidden" }}
     >
       <div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
@@ -65,8 +65,8 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
         <div className="mac-window">
           <MacButtons title="sherbin.online — zsh" onMinimize={onMinimize} onClose={onMinimize} />
 
-          <div className="terminal-font" style={{ padding: "40px", background: "var(--terminal-bg)" }}>
-            <div className="w-full flex flex-wrap gap-10 items-center">
+          <div className="terminal-font" style={{ padding: "clamp(20px, 5vw, 40px)", background: "var(--terminal-bg)" }}>
+            <div className="w-full flex flex-col-reverse sm:flex-row gap-8 sm:gap-10 items-center sm:items-start">
               {/* Left */}
               <div className="flex-1 min-w-[260px]">
                 <div className="mb-5" style={{ color: "var(--text-secondary)", fontSize: "13px" }}>
@@ -133,8 +133,8 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
               <div className="flex-shrink-0 flex justify-center">
                 <div
                   style={{
-                    width: "180px",
-                    height: "220px",
+                    width: "clamp(120px, 30vw, 180px)",
+                    height: "clamp(148px, 37vw, 220px)",
                     border: "2px solid var(--border)",
                     boxShadow: "0 0 40px rgba(0,216,255,0.1)",
                     borderRadius: "16px",
@@ -144,7 +144,7 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
                   }}
                 >
                   <Image
-                    src="/profile.jpg"
+                    src="/profile-v2.jpg"
                     alt="Sherbin S"
                     fill
                     sizes="180px"

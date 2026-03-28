@@ -25,13 +25,13 @@ export default function Contact({ isMinimized, onMinimize, onRestore }: Props) {
       onMinimize={onMinimize}
       onRestore={onRestore}
     >
-      <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
-        <div className="grid gap-12" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+      <div style={{ padding: "clamp(20px, 5vw, 40px)", background: "var(--terminal-bg)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           <div>
             <p className="text-sm font-medium mb-4 terminal-font" style={{ color: "var(--accent)" }}>
               # get_in_touch
             </p>
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="font-bold mb-4" style={{ fontSize: "clamp(20px, 4vw, 30px)" }}>
               Let&apos;s <span className="text-gradient">connect</span>
             </h2>
             <p style={{ color: "var(--text-secondary)", lineHeight: "1.8", fontSize: "15px" }}>

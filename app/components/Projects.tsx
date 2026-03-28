@@ -66,11 +66,11 @@ export default function Projects({ isMinimized, onMinimize, onRestore }: Props) 
       onMinimize={onMinimize}
       onRestore={onRestore}
     >
-      <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
+      <div style={{ padding: "clamp(20px, 5vw, 40px)", background: "var(--terminal-bg)" }}>
         <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
           # featured_projects
         </p>
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <div
               key={project.name}
