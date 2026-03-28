@@ -1,8 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import MacButtons from "./MacButtons";
-import { minimizeVariants } from "./minimizeVariants";
+import MinimizableSection from "./MinimizableSection";
 
 interface Props {
   isMinimized?: boolean;
@@ -27,115 +25,54 @@ const experiences = [
   },
 ];
 
-const education = [
-  {
-    school: "JCT College of Engineering & Technology",
-    degree: "B.E. Computer Science and Engineering",
-    grade: "CGPA: 8.3",
-    period: "June 2021 – May 2025",
-    location: "Tamil Nadu, India",
-  },
-  {
-    school: "St Joseph's Hr. Sec. School",
-    degree: "Mathematics, Physics, Chemistry",
-    grade: "83%",
-    period: "June 2020 – May 2021",
-    location: "Tamil Nadu, India",
-  },
-];
-
-const pad = "clamp(20px, 5vw, 40px)";
-
-export default function Experience({ isMinimized, onMinimize }: Props) {
+export default function Experience({ isMinimized, onMinimize, onRestore }: Props) {
   return (
-    <section id="experience" style={{ padding: isMinimized ? 0 : "clamp(40px, 8vw, 80px) clamp(12px, 4vw, 24px)", overflow: "hidden" }}>
-      <AnimatePresence>
-        {!isMinimized && (
-          <motion.div
-            key="experience"
-            variants={minimizeVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            style={{ transformOrigin: "bottom center" }}
-            className="max-w-5xl mx-auto space-y-6"
-          >
-            {/* Work */}
-            <div className="mac-window">
-              <MacButtons title="experience.json" onMinimize={onMinimize} onClose={onMinimize} />
-              <div style={{ padding: pad, background: "var(--terminal-bg)" }}>
-                <p className="text-sm font-medium mb-6 terminal-font" style={{ color: "var(--accent)" }}>
-                  # work_experience
-                </p>
-                {experiences.map((exp) => (
-                  <div key={exp.role}>
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-5">
-                      <div className="min-w-0">
-                        <h3
-                          className="font-bold leading-snug"
-                          style={{ color: "var(--text-primary)", fontSize: "clamp(15px, 3vw, 18px)" }}
-                        >
-                          {exp.role}
-                        </h3>
-                        <div className="flex flex-wrap items-center gap-1 mt-1">
-                          <span className="font-semibold text-sm" style={{ color: exp.color }}>{exp.company}</span>
-                          <span style={{ color: "var(--border)" }}>·</span>
-                          <span className="text-sm" style={{ color: "var(--text-secondary)" }}>{exp.location}</span>
-                        </div>
-                      </div>
-                      <span
-                        className="self-start px-3 py-1 rounded-full text-xs font-medium terminal-font whitespace-nowrap flex-shrink-0"
-                        style={{ background: "rgba(0,216,255,0.1)", color: "var(--accent)", border: "1px solid rgba(0,216,255,0.2)" }}
-                      >
-                        {exp.period}
-                      </span>
-                    </div>
-                    <ul className="space-y-3">
-                      {exp.highlights.map((h, i) => (
-                        <li key={i} className="flex gap-2" style={{ color: "var(--text-secondary)", fontSize: "clamp(12px, 2vw, 14px)", lineHeight: "1.7" }}>
-                          <span style={{ color: "var(--accent-green)", flexShrink: 0, marginTop: "2px" }}>▸</span>
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Education */}
-            <div className="mac-window">
-              <MacButtons title="education.json" onMinimize={onMinimize} onClose={onMinimize} />
-              <div style={{ padding: pad, background: "var(--terminal-bg)" }}>
-                <p className="text-sm font-medium mb-6 terminal-font" style={{ color: "var(--accent-purple)" }}>
-                  # education
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {education.map((edu) => (
-                    <div
-                      key={edu.school}
-                      className="p-4 rounded-xl border card-hover"
-                      style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
-                    >
-                      <div className="text-xs font-medium mb-2 terminal-font" style={{ color: "var(--accent-purple)" }}>
-                        {edu.period}
-                      </div>
-                      <h4 className="font-semibold mb-1" style={{ color: "var(--text-primary)", fontSize: "clamp(12px, 2vw, 14px)" }}>{edu.school}</h4>
-                      <p className="text-xs mb-2" style={{ color: "var(--text-secondary)" }}>{edu.degree}</p>
-                      <span
-                        className="text-xs px-2 py-0.5 rounded-full"
-                        style={{ background: "rgba(191,90,242,0.1)", color: "var(--accent-purple)", border: "1px solid rgba(191,90,242,0.2)" }}
-                      >
-                        {edu.grade}
-                      </span>
-                    </div>
-                  ))}
+    <MinimizableSection
+      id="experience"
+      sectionId="experience"
+      title="experience.json"
+      isMinimized={isMinimized}
+      onMinimize={onMinimize}
+      onRestore={onRestore}
+    >
+      <div style={{ padding: "clamp(20px, 5vw, 40px)", background: "var(--terminal-bg)" }}>
+        <p className="text-sm font-medium mb-6 terminal-font" style={{ color: "var(--accent)" }}>
+          # work_experience
+        </p>
+        {experiences.map((exp) => (
+          <div key={exp.role}>
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-5">
+              <div className="min-w-0">
+                <h3
+                  className="font-bold leading-snug"
+                  style={{ color: "var(--text-primary)", fontSize: "clamp(15px, 3vw, 18px)" }}
+                >
+                  {exp.role}
+                </h3>
+                <div className="flex flex-wrap items-center gap-1 mt-1">
+                  <span className="font-semibold text-sm" style={{ color: exp.color }}>{exp.company}</span>
+                  <span style={{ color: "var(--border)" }}>·</span>
+                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>{exp.location}</span>
                 </div>
               </div>
+              <span
+                className="self-start px-3 py-1 rounded-full text-xs font-medium terminal-font whitespace-nowrap flex-shrink-0"
+                style={{ background: "rgba(0,216,255,0.1)", color: "var(--accent)", border: "1px solid rgba(0,216,255,0.2)" }}
+              >
+                {exp.period}
+              </span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
+            <ul className="space-y-3">
+              {exp.highlights.map((h, i) => (
+                <li key={i} className="flex gap-2" style={{ color: "var(--text-secondary)", fontSize: "clamp(12px, 2vw, 14px)", lineHeight: "1.7" }}>
+                  <span style={{ color: "var(--accent-green)", flexShrink: 0, marginTop: "2px" }}>▸</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </MinimizableSection>
   );
 }

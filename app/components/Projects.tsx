@@ -75,7 +75,12 @@ export default function Projects({ isMinimized, onMinimize, onRestore }: Props) 
             <div
               key={project.name}
               className="rounded-xl border card-hover overflow-hidden"
-              style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg-card)",
+                cursor: project.link ? "pointer" : "default",
+              }}
+              onClick={() => project.link && window.open(project.link, "_blank", "noopener,noreferrer")}
             >
               <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${project.color}, transparent)` }} />
               <div className="p-5">

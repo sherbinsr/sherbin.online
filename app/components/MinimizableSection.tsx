@@ -26,7 +26,7 @@ export default function MinimizableSection({
   sectionStyle,
 }: Props) {
   return (
-    <section id={sectionId} style={{ padding: isMinimized ? 0 : "clamp(40px, 8vw, 80px) clamp(12px, 4vw, 24px)", overflow: "hidden", ...sectionStyle }}>
+    <section id={sectionId} style={{ overflow: "hidden", ...sectionStyle }}>
       <AnimatePresence>
         {!isMinimized && (
           <motion.div

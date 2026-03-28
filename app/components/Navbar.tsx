@@ -3,18 +3,24 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
 
-const navLinks = [
-  { href: "#home", label: "home" },
-  { href: "#about", label: "about" },
-  { href: "#experience", label: "experience" },
-  { href: "#skills", label: "skills" },
-  { href: "#projects", label: "projects" },
-  { href: "#contact", label: "contact" },
+const NAV_ITEMS = [
+  { id: "home",       label: "home"       },
+  { id: "about",      label: "about"      },
+  { id: "experience", label: "experience" },
+  { id: "education",  label: "education"  },
+  { id: "skills",     label: "skills"     },
+  { id: "projects",   label: "projects"   },
+  { id: "contact",    label: "contact"    },
 ];
 
-export default function Navbar() {
+interface Props {
+  openSections: string[];
+  onNav: (id: string) => void;
+  onDesktop: () => void;
+}
+
+export default function Navbar({ openSections, onNav, onDesktop }: Props) {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("home");
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
@@ -40,33 +46,53 @@ export default function Navbar() {
         className="max-w-5xl mx-auto flex items-center justify-between"
         style={{ padding: "14px 24px" }}
       >
-        <span className="font-bold terminal-font" style={{ color: "var(--accent)", fontSize: "14px" }}>
+        <button
+          onClick={() => onNav("home")}
+          className="font-bold terminal-font"
+          style={{ color: "var(--accent)", fontSize: "14px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+        >
           sherbin.online
-        </span>
+        </button>
 
         <div className="flex items-center gap-1">
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setActive(link.label)}
+            {NAV_ITEMS.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => item.id === "home" ? window.scrollTo({ top: 0, behavior: "smooth" }) : onNav(item.id)}
                 className="px-3 py-1.5 rounded-lg text-xs terminal-font transition-all duration-150"
                 style={{
-                  color: active === link.label ? "var(--accent)" : "var(--text-secondary)",
-                  background: active === link.label ? "rgba(0,113,227,0.08)" : "transparent",
-                  textDecoration: "none",
+                  color: openSections.includes(item.id) ? "var(--accent)" : "var(--text-secondary)",
+                  background: openSections.includes(item.id) ? "rgba(0,113,227,0.08)" : "transparent",
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                {link.label}
-              </a>
+                {item.label}
+              </button>
             ))}
           </div>
+
+          {/* Desktop mode button */}
+          <button
+            onClick={onDesktop}
+            className="ml-1 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-150"
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              color: "var(--text-secondary)",
+              cursor: "pointer",
+              fontSize: "12px",
+            }}
+            title="Desktop mode"
+          >
+            ⊟
+          </button>
 
           {/* Theme toggle */}
           <button
             onClick={toggle}
-            className="ml-2 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-150"
+            className="ml-1 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-150"
             style={{
               background: "var(--bg-card)",
               border: "1px solid var(--border)",

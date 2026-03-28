@@ -25,6 +25,12 @@ export default function ShelbyTerminal() {
   }, [open, minimized, maximized]);
 
   useEffect(() => {
+    const handler = () => { setOpen(true); setMinimized(false); };
+    window.addEventListener("open-shelby", handler);
+    return () => window.removeEventListener("open-shelby", handler);
+  }, []);
+
+  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
@@ -77,30 +83,73 @@ export default function ShelbyTerminal() {
       }
     : {
         width: "min(520px, calc(100vw - 32px))",
+        height: "600px",
+        minHeight: "400px",
         bottom: "32px",
         right: "32px",
       };
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating icon button */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-8 right-8 terminal-font font-bold text-sm px-5 py-3 rounded-xl z-50 flex items-center gap-2 transition-all duration-200"
-          style={{
-            background: "linear-gradient(135deg, #00d8ff18, #00d8ff08)",
-            border: "1px solid rgba(0,216,255,0.3)",
-            color: "var(--accent)",
-            backdropFilter: "blur(12px)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,216,255,0.1)",
-          }}
+          className="fixed bottom-8 right-8 z-50 flex flex-col items-center gap-1.5 transition-all duration-200"
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+          title="Open Shelby"
         >
+          {/* Icon shell */}
+          <div
+            style={{
+              width: "56px",
+              height: "56px",
+              borderRadius: "14px",
+              background: "linear-gradient(145deg, #0d1a2a, #0a1220)",
+              border: "1.5px solid rgba(0,216,255,0.3)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 16px rgba(0,216,255,0.1)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Glow ring */}
+            <div style={{ position: "absolute", inset: 0, borderRadius: "14px", background: "radial-gradient(circle at 50% 30%, rgba(0,216,255,0.12) 0%, transparent 70%)" }} />
+            {/* AI brain SVG */}
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="4" fill="none" stroke="#00d8ff" strokeWidth="1.5"/>
+              <circle cx="12" cy="12" r="1.5" fill="#00d8ff"/>
+              <path d="M12 2 L12 5" stroke="#00d8ff" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M12 19 L12 22" stroke="#00d8ff" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M2 12 L5 12" stroke="#bf5af2" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M19 12 L22 12" stroke="#bf5af2" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M5.636 5.636 L7.757 7.757" stroke="#00ff88" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M16.243 16.243 L18.364 18.364" stroke="#00ff88" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M18.364 5.636 L16.243 7.757" stroke="#00ff88" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M7.757 16.243 L5.636 18.364" stroke="#00ff88" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            {/* Online dot */}
+            <span style={{ position: "absolute", bottom: "6px", right: "6px", width: "7px", height: "7px", borderRadius: "50%", background: "#28c840", boxShadow: "0 0 6px #28c840", border: "1.5px solid #0d1a2a" }} />
+          </div>
+          {/* Label */}
           <span
-            className="w-2 h-2 rounded-full"
-            style={{ background: "var(--accent-green)", boxShadow: "0 0 6px var(--accent-green)" }}
-          />
-          ~ chat with Shelby
+            className="terminal-font"
+            style={{
+              color: "var(--accent)",
+              fontSize: "11px",
+              fontWeight: 600,
+              background: "rgba(0,0,0,0.55)",
+              padding: "2px 8px",
+              borderRadius: "5px",
+              border: "1px solid rgba(0,216,255,0.15)",
+              backdropFilter: "blur(8px)",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Shelby
+          </span>
         </button>
       )}
 
@@ -109,32 +158,44 @@ export default function ShelbyTerminal() {
         {open && (
           <motion.div
             key="shelby"
-            className="fixed z-50 mac-window flex flex-col"
-            style={{ ...windowStyle, overflow: "hidden" }}
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              transition: { duration: 0.25, ease: "easeOut" },
+            className="fixed z-50"
+            style={{
+              ...windowStyle,
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border)",
+              borderRadius: maximized ? 0 : "12px",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.4)",
             }}
-            exit={{ opacity: 0, scale: 0.85, y: 20, transition: { duration: 0.2 } }}
-            layout
-            transition={{ layout: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] } }}
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.85, y: 20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
           >
             {/* Titlebar */}
             <div
-              className="mac-titlebar flex-shrink-0"
-              style={{ background: maximized ? "#1a1a1a" : "var(--titlebar-bg)" }}
+              style={{
+                background: maximized ? "#1a1a1a" : "var(--titlebar-bg)",
+                borderBottom: "1px solid var(--border)",
+                padding: "10px 16px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                position: "relative",
+                flexShrink: 0,
+                zIndex: 1,
+              }}
             >
-              <div className="mac-buttons flex gap-2">
+              <div className="mac-buttons" style={{ display: "flex", gap: "8px" }}>
                 <div className="mac-btn mac-btn-close" onClick={handleClose} title="Close">
                   <span className="mac-btn-label">✕</span>
                 </div>
                 <div
                   className="mac-btn mac-btn-minimize"
-                  onClick={() => { setMinimized((v) => !v); setMaximized(false); }}
-                  title="Minimize"
+                  onClick={handleClose}
+                  title="Close"
                 >
                   <span className="mac-btn-label">−</span>
                 </div>
@@ -147,37 +208,31 @@ export default function ShelbyTerminal() {
                 </div>
               </div>
               <span
-                className="absolute left-1/2 -translate-x-1/2 terminal-font text-xs font-medium"
-                style={{ color: "var(--text-secondary)" }}
+                className="terminal-font text-xs font-medium"
+                style={{ color: "var(--text-secondary)", position: "absolute", left: "50%", transform: "translateX(-50%)" }}
               >
                 shelby — zsh{maximized ? " — Full Screen" : ""}
               </span>
-
-              {/* Full-screen hint */}
-              {maximized && (
-                <span
-                  className="absolute right-4 terminal-font text-xs"
-                  style={{ color: "var(--text-secondary)", opacity: 0.5 }}
-                >
-                  Press ⊕ to restore
-                </span>
-              )}
             </div>
 
             {/* Body */}
             {!minimized && (
               <div
-                className="terminal-font flex flex-col flex-1"
+                className="terminal-font"
                 style={{
                   background: maximized ? "#0a0a0a" : "var(--terminal-bg)",
-                  height: maximized ? undefined : "456px",
-                  flex: maximized ? 1 : undefined,
+                  flex: 1,
+                  minHeight: 0,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                {/* Output */}
+                {/* Output — scrollable */}
                 <div
-                  className="flex-1 overflow-y-auto"
                   style={{
+                    flex: 1,
+                    minHeight: 0,
+                    overflowY: "auto",
                     padding: maximized ? "24px 32px" : "16px",
                     fontSize,
                     lineHeight: "1.8",

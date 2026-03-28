@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Sherbin S — Software Development Engineer",
   description:
     "Portfolio of Sherbin S — SDE at Think41 building AI systems, full-stack platforms, and real-time communication tools.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
