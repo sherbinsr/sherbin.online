@@ -1,6 +1,12 @@
 "use client";
 
-import MacButtons from "./MacButtons";
+import MinimizableSection from "./MinimizableSection";
+
+interface Props {
+  isMinimized?: boolean;
+  onMinimize?: () => void;
+  onRestore?: () => void;
+}
 
 const skillGroups = [
   {
@@ -41,56 +47,46 @@ const skillGroups = [
   },
 ];
 
-export default function Skills() {
+export default function Skills({ isMinimized, onMinimize, onRestore }: Props) {
   return (
-    <section id="skills" style={{ padding: "80px 24px" }}>
-      <div className="max-w-5xl mx-auto">
-        <div className="mac-window">
-          <MacButtons title="skills.config" />
-          <div style={{ padding: "40px", background: "#0d0d0d" }}>
-            <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
-              # skills & technologies
-            </p>
+    <MinimizableSection
+      id="skills"
+      sectionId="skills"
+      title="skills.config"
+      isMinimized={isMinimized}
+      onMinimize={onMinimize}
+      onRestore={onRestore}
+    >
+      <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
+        <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
+          # skills & technologies
+        </p>
+        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          {skillGroups.map((group) => (
             <div
-              className="grid gap-6"
-              style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}
+              key={group.category}
+              className="p-5 rounded-xl border card-hover"
+              style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
             >
-              {skillGroups.map((group) => (
-                <div
-                  key={group.category}
-                  className="p-5 rounded-xl border card-hover"
-                  style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="terminal-font text-lg" style={{ color: group.color }}>
-                      {group.icon}
-                    </span>
-                    <span className="font-semibold text-sm" style={{ color: group.color }}>
-                      {group.category}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-2.5 py-1 rounded-md text-xs font-medium terminal-font"
-                        style={{
-                          background: "rgba(255,255,255,0.05)",
-                          color: "var(--text-secondary)",
-                          border: "1px solid var(--border)",
-                          transition: "all 0.15s",
-                        }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <div className="flex items-center gap-2 mb-4">
+                <span className="terminal-font text-lg" style={{ color: group.color }}>{group.icon}</span>
+                <span className="font-semibold text-sm" style={{ color: group.color }}>{group.category}</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2.5 py-1 rounded-md text-xs font-medium terminal-font"
+                    style={{ background: "rgba(255,255,255,0.05)", color: "var(--text-secondary)", border: "1px solid var(--border)" }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
+    </MinimizableSection>
   );
 }

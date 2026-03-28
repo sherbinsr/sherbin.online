@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     const { messages } = await req.json();
 
     const completion = await groq.chat.completions.create({
-      model: "gpt-oss-120b",
+      model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...messages,

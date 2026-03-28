@@ -1,6 +1,12 @@
 "use client";
 
-import MacButtons from "./MacButtons";
+import MinimizableSection from "./MinimizableSection";
+
+interface Props {
+  isMinimized?: boolean;
+  onMinimize?: () => void;
+  onRestore?: () => void;
+}
 
 const achievements = [
   {
@@ -26,38 +32,36 @@ const achievements = [
   },
 ];
 
-export default function Achievements() {
+export default function Achievements({ isMinimized, onMinimize, onRestore }: Props) {
   return (
-    <section id="achievements" style={{ padding: "80px 24px" }}>
-      <div className="max-w-5xl mx-auto">
-        <div className="mac-window">
-          <MacButtons title="achievements.log" />
-          <div style={{ padding: "40px", background: "#0d0d0d" }}>
-            <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
-              # achievements & highlights
-            </p>
-            <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
-              {achievements.map((a) => (
-                <div
-                  key={a.title}
-                  className="p-5 rounded-xl border card-hover"
-                  style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-2xl">{a.icon}</span>
-                    <h3 className="font-semibold text-sm leading-snug" style={{ color: a.color }}>
-                      {a.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: "1.7" }}>
-                    {a.description}
-                  </p>
-                </div>
-              ))}
+    <MinimizableSection
+      id="achievements"
+      sectionId="achievements"
+      title="achievements"
+      isMinimized={isMinimized}
+      onMinimize={onMinimize}
+      onRestore={onRestore}
+    >
+      <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
+        <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
+          # achievements & highlights
+        </p>
+        <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          {achievements.map((a) => (
+            <div
+              key={a.title}
+              className="p-5 rounded-xl border card-hover"
+              style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">{a.icon}</span>
+                <h3 className="font-semibold text-sm leading-snug" style={{ color: a.color }}>{a.title}</h3>
+              </div>
+              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: "1.7" }}>{a.description}</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
+    </MinimizableSection>
   );
 }

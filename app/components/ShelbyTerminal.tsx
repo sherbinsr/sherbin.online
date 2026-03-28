@@ -22,15 +22,6 @@ export default function ShelbyTerminal() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const terminalLines: TerminalLine[] = [
-    {
-      type: "system",
-      content: "Shelby AI — Sherbin's personal assistant v1.0.0",
-    },
-    {
-      type: "system",
-      content: 'Type your question and press Enter. Try "tell me about Sherbin"',
-    },
-    { type: "divider", content: "" },
     ...messages.flatMap((m): TerminalLine[] =>
       m.role === "user"
         ? [{ type: "user", content: m.content }]
@@ -111,7 +102,7 @@ export default function ShelbyTerminal() {
           }}
         >
           {/* Titlebar */}
-          <div className="mac-titlebar" style={{ background: "#1e1e1e" }}>
+          <div className="mac-titlebar" style={{ background: "var(--titlebar-bg)" }}>
             <div className="mac-buttons flex gap-2">
               <div
                 className="mac-btn mac-btn-close"
@@ -146,7 +137,7 @@ export default function ShelbyTerminal() {
           {!minimized && (
             <div
               className="terminal-font"
-              style={{ background: "#0d0d0d", display: "flex", flexDirection: "column", height: "456px" }}
+              style={{ background: "var(--terminal-bg)", display: "flex", flexDirection: "column", height: "456px" }}
             >
               {/* Output area */}
               <div
@@ -165,7 +156,7 @@ export default function ShelbyTerminal() {
                       </div>
                     )}
                     {line.type === "divider" && (
-                      <div style={{ borderTop: "1px solid #1e1e1e", margin: "8px 0" }} />
+                      <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0" }} />
                     )}
                     {line.type === "user" && (
                       <div className="mt-2">
@@ -203,8 +194,8 @@ export default function ShelbyTerminal() {
                 className="flex items-center gap-2"
                 style={{
                   padding: "12px 16px",
-                  borderTop: "1px solid #1e1e1e",
-                  background: "#0a0a0a",
+                  borderTop: "1px solid var(--border)",
+                  background: "var(--input-bg)",
                 }}
               >
                 <span style={{ color: "var(--accent-green)", fontSize: "12px", flexShrink: 0 }}>

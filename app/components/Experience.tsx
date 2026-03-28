@@ -1,6 +1,14 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import MacButtons from "./MacButtons";
+import { minimizeVariants } from "./minimizeVariants";
+
+interface Props {
+  isMinimized?: boolean;
+  onMinimize?: () => void;
+  onRestore?: () => void;
+}
 
 const experiences = [
   {
@@ -36,14 +44,24 @@ const education = [
   },
 ];
 
-export default function Experience() {
+export default function Experience({ isMinimized, onMinimize }: Props) {
   return (
-    <section id="experience" style={{ padding: "80px 24px" }}>
-      <div className="max-w-5xl mx-auto space-y-8">
-        {/* Work */}
+    <section id="experience" style={{ padding: isMinimized ? 0 : "80px 24px", overflow: "hidden" }}>
+      <AnimatePresence>
+        {!isMinimized && (
+          <motion.div
+            key="experience"
+            variants={minimizeVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            style={{ transformOrigin: "bottom center" }}
+            className="max-w-5xl mx-auto space-y-8"
+          >
+        {/* Work experience window */}
         <div className="mac-window">
-          <MacButtons title="experience.json" />
-          <div style={{ padding: "40px", background: "#0d0d0d" }}>
+          <MacButtons title="experience.json" onMinimize={onMinimize} onClose={onMinimize} />
+          <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
             <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent)" }}>
               # work_experience
             </p>
@@ -51,26 +69,16 @@ export default function Experience() {
               <div key={exp.role}>
                 <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                   <div>
-                    <h3 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
-                      {exp.role}
-                    </h3>
+                    <h3 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>{exp.role}</h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="font-semibold" style={{ color: exp.color }}>
-                        {exp.company}
-                      </span>
+                      <span className="font-semibold" style={{ color: exp.color }}>{exp.company}</span>
                       <span style={{ color: "var(--border)" }}>·</span>
-                      <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                        {exp.location}
-                      </span>
+                      <span className="text-sm" style={{ color: "var(--text-secondary)" }}>{exp.location}</span>
                     </div>
                   </div>
                   <span
                     className="px-3 py-1 rounded-full text-xs font-medium terminal-font"
-                    style={{
-                      background: "rgba(0,216,255,0.1)",
-                      color: "var(--accent)",
-                      border: "1px solid rgba(0,216,255,0.2)",
-                    }}
+                    style={{ background: "rgba(0,216,255,0.1)", color: "var(--accent)", border: "1px solid rgba(0,216,255,0.2)" }}
                   >
                     {exp.period}
                   </span>
@@ -88,10 +96,9 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* Education */}
         <div className="mac-window">
           <MacButtons title="education.json" />
-          <div style={{ padding: "40px", background: "#0d0d0d" }}>
+          <div style={{ padding: "40px", background: "var(--terminal-bg)" }}>
             <p className="text-sm font-medium mb-8 terminal-font" style={{ color: "var(--accent-purple)" }}>
               # education
             </p>
@@ -102,25 +109,14 @@ export default function Experience() {
                   className="p-5 rounded-xl border card-hover"
                   style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
                 >
-                  <div
-                    className="text-xs font-medium mb-2 terminal-font"
-                    style={{ color: "var(--accent-purple)" }}
-                  >
+                  <div className="text-xs font-medium mb-2 terminal-font" style={{ color: "var(--accent-purple)" }}>
                     {edu.period}
                   </div>
-                  <h4 className="font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
-                    {edu.school}
-                  </h4>
-                  <p className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>
-                    {edu.degree}
-                  </p>
+                  <h4 className="font-semibold mb-1" style={{ color: "var(--text-primary)" }}>{edu.school}</h4>
+                  <p className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>{edu.degree}</p>
                   <span
                     className="text-xs px-2 py-0.5 rounded-full"
-                    style={{
-                      background: "rgba(191,90,242,0.1)",
-                      color: "var(--accent-purple)",
-                      border: "1px solid rgba(191,90,242,0.2)",
-                    }}
+                    style={{ background: "rgba(191,90,242,0.1)", color: "var(--accent-purple)", border: "1px solid rgba(191,90,242,0.2)" }}
                   >
                     {edu.grade}
                   </span>
@@ -129,7 +125,9 @@ export default function Experience() {
             </div>
           </div>
         </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
