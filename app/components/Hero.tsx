@@ -26,6 +26,8 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
   const [lightbox, setLightbox] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -170,7 +172,7 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
               </div>
 
               {/* Lightbox */}
-              {lightbox && typeof document !== "undefined" && createPortal(
+              {lightbox && mounted && createPortal(
                 <AnimatePresence>
                   <motion.div
                     key="lightbox"

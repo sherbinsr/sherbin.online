@@ -8,15 +8,34 @@ interface Message {
   content: string;
 }
 
+const STORAGE_KEY = "shelby_chat_history";
+
 export default function ShelbyTerminal() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [minimized, setMinimized] = useState(false);
   const [maximized, setMaximized] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Persist messages to localStorage on every change
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch {
+      // ignore storage errors (e.g. private mode quota)
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (open && !minimized) {
@@ -213,6 +232,28 @@ export default function ShelbyTerminal() {
               >
                 shelby — zsh{maximized ? " — Full Screen" : ""}
               </span>
+
+              {/* Clear history */}
+              {messages.length > 0 && (
+                <button
+                  onClick={() => { setMessages([]); localStorage.removeItem(STORAGE_KEY); }}
+                  title="Clear history"
+                  style={{
+                    position: "absolute",
+                    right: "16px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "var(--text-secondary)",
+                    fontSize: "11px",
+                    fontFamily: "inherit",
+                    opacity: 0.6,
+                    padding: 0,
+                  }}
+                >
+                  clear
+                </button>
+              )}
             </div>
 
             {/* Body */}

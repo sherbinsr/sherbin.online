@@ -47,7 +47,7 @@ export default function Navbar({ openSections, onNav, onDesktop }: Props) {
         style={{ padding: "14px 24px" }}
       >
         <button
-          onClick={() => onNav("home")}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="font-bold terminal-font"
           style={{ color: "var(--accent)", fontSize: "14px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
         >
