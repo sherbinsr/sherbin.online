@@ -153,7 +153,7 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
                 >
                   <Image
                     src="/profile-v3.jpg"
-                    alt="Sherbin S"
+                    alt="Sherbin S — Software Development Engineer at Think41, Bangalore"
                     fill
                     sizes="180px"
                     style={{ objectFit: "cover", objectPosition: "center top" }}
@@ -208,7 +208,7 @@ export default function Hero({ isMinimized, onMinimize, onRestore }: Props) {
                     >
                       <Image
                         src="/profile-v3.jpg"
-                        alt="Sherbin S"
+                        alt="Sherbin S — Software Development Engineer at Think41, Bangalore"
                         fill
                         sizes="480px"
                         style={{ objectFit: "cover", objectPosition: "center top" }}
