@@ -10,17 +10,26 @@ interface Props {
 
 const experiences = [
   {
-    role: "Software Development Engineer",
+    role: "Software Development Engineer I",
     company: "Think41",
-    period: "Nov 2024 – Present",
+    period: "Jun 2025 – Present",
     location: "Bangalore, India",
     color: "var(--accent)",
     highlights: [
-      "Delivered 3+ end-to-end client projects — conversational AI, real-time communication, and full-stack development using Django, FastAPI, LiveKit, Next.js, React, and React Native.",
-      "Built production-grade conversational AI systems with STT/TTS, sentiment analysis, inactivity tracking, and dynamic document workflows — reducing manual effort by 50%+.",
-      "Implemented scalable auth & communication flows for B2B apps using AWS SNS/SES/S3, Twilio, and JWT-based systems, supporting 20,000+ users.",
-      "Led CI/CD, production deployments, and cross-service integrations ensuring 99.9% uptime and data integrity across distributed systems.",
-      "Participated in peer code reviews and pair programming to foster continuous team learning.",
+      "Worked in a 2-member engineering team to build a conversational AI platform for Magical Nest, enabling users to design custom floor plans interactively — contributing to ₹4.12 crore pre-seed funding at a ₹60 crore valuation (Mar 2026).",
+      "Built and productionized a B2B mobile application using React Native for Entero Healthcare Solutions (BSE & NSE listed), supporting order management, inventory tracking, and distribution workflows across 79,400+ pharmacies and 3,300+ hospitals in 500+ districts.",
+      "Diagnosed and resolved critical issues across conversational AI pipelines, implemented security enhancements, and published a dealer-facing mobile app for Vyngo (Bhoruka Auto Tech), an AI-driven marketplace for commercial vehicles.",
+    ],
+  },
+  {
+    role: "Software Development Engineer Intern",
+    company: "Think41",
+    period: "Nov 2024 – May 2025",
+    location: "Bangalore, India",
+    color: "var(--accent-green)",
+    highlights: [
+      "Built a live conversational voice AI platform using LiveKit, Deepgram, and ElevenLabs, enabling real-time multi-agent collaboration and improving resolution speed; developed a POC that contributed to onboarding JPMorgan Chase (JPMC) as a client.",
+      "Prototyped a conversational AI floor plan design system for Magical Nest, later converted into a paid client and contributing to its funding round.",
     ],
   },
 ];
@@ -39,8 +48,8 @@ export default function Experience({ isMinimized, onMinimize, onRestore }: Props
         <p className="text-sm font-medium mb-6 terminal-font" style={{ color: "var(--accent)" }}>
           # work_experience
         </p>
-        {experiences.map((exp) => (
-          <div key={exp.role}>
+        {experiences.map((exp, idx) => (
+          <div key={exp.role} style={idx > 0 ? { marginTop: "clamp(24px, 5vw, 36px)", paddingTop: "clamp(24px, 5vw, 36px)", borderTop: "1px solid var(--border)" } : {}}>
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-5">
               <div className="min-w-0">
                 <h3

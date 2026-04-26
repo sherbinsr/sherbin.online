@@ -73,6 +73,23 @@ export default function Navbar({ openSections, onNav, onDesktop }: Props) {
             ))}
           </div>
 
+          {/* Resume download */}
+          <a
+            href="https://drive.google.com/uc?export=download&id=1rfwZa4Lo8GMPrdiUrhayROWH1u5K-nq_"
+            download
+            className="ml-1 px-3 py-1.5 rounded-lg text-xs terminal-font transition-all duration-150 hidden md:flex items-center gap-1"
+            style={{
+              background: "rgba(0,113,227,0.12)",
+              border: "1px solid rgba(0,113,227,0.35)",
+              color: "var(--accent)",
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+            title="Download Resume"
+          >
+            ↓ resume
+          </a>
+
           {/* Desktop mode button */}
           <button
             onClick={onDesktop}
