@@ -38,7 +38,7 @@ export const metadata: Metadata = {
       "SDE at Think41 building production-grade AI systems, full-stack platforms, and real-time tools. 20K+ users, 99.9% uptime.",
     images: [
       {
-        url: "/profile-v3.jpg",
+        url: "/IMG_5538.jpg",
         width: 800,
         height: 1000,
         alt: "Sherbin S — Software Development Engineer",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Sherbin S — Software Development Engineer | AI & Full-Stack",
     description:
       "SDE at Think41 building production-grade AI systems, full-stack platforms, and real-time tools.",
-    images: ["/profile-v3.jpg"],
+    images: ["/IMG_5538.jpg"],
     creator: "@sherbinsr",
   },
   robots: {
@@ -77,7 +77,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Sherbin S",
   url: BASE_URL,
-  image: `${BASE_URL}/profile-v3.jpg`,
+  image: `${BASE_URL}/IMG_5538.jpg`,
   jobTitle: "Software Development Engineer",
   worksFor: {
     "@type": "Organization",
